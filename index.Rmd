@@ -321,7 +321,7 @@ modelsummary(model3c, title = "Regresion: modelo 3 con \ncoeficientes estandariz
 
 ```
 
-Puedes complementar esta información revisando [@goyal2021].
+Puedes complementar esta información revisando esta nota en Wikipedia [-@wikipedia2022].
 
 <a id='diag'></a>
 
