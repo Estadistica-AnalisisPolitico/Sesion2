@@ -1,5 +1,5 @@
 ---
-title: "Sesion 2"
+title: "Sesión 2"
 output:
   bookdown::html_document2:
     code_folding: hide 
@@ -43,6 +43,9 @@ Regresión Lineal Multivariada (II)
 
 </center>
 
+<center><a href="https://zenodo.org/badge/latestdoi/526453788"><img src="https://zenodo.org/badge/526453788.svg" alt="DOI"></a>
+
+</center>
 ------------------------------------------------------------------------
 
 <a id='rlin'></a>
