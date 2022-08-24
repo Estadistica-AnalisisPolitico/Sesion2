@@ -316,81 +316,103 @@ Puedes complementar esta información revisando esta nota en Wikipedia [-@wikipe
 
 # Diagnósticos de la Regresión
 
-Para que se considere que el modelo de regresión elegido es el adecuado, debemos verificar algunos requisitos a posteriori:
+Con el apoyo de las computadoras y el software estadístico es relativamente facil calcular una regresión. Sin embargo, hay que analizar los resultados obtenidos para poder rener una mejor conclusión. Revisemos el resultado de la segunda regresion en las siguientes sub secciones.
 
-**1. Linealidad**:
+## Linealidad
 
-Se asume relación lineal entre Y y Xs:
+Se asume relación lineal entre la variable dependiente (Y) y las independientes y Xs. Para ello analizamos la relación entre los residuos y los valores que predice  el modelo de regresión. Ver Figura \@ref(fig:linealidad).
 
-```{r}
+
+```{r linealidad,fig.cap="Evaluando Linealidad"}
 # linea roja debe tender a horizontal
 plot(reg2, 1)
 ```
 
-**2. Homocedasticidad**
+La falta de linearidad provocaría que el modelo no sirva para explicar las mismas variables con datos diferentes en otrs estudios.
 
-Se asume que el error del modelo de regresión no afecta la varianza o dispersión de la estimación ($\hat{MATH}$):
+## Homocedasticidad
 
-```{r}
+Se asume que la dispersión de los errores de la estimación ($\hat{apropiaciondolar}$) mantiene una variación homogenea. Si analizamos las raices de los errores estandarizados versus los valores estimados, la distancia de los puntos a la linea de referencia debe ser similar. Ver Figura \@ref(fig:homocedas).
+
+```{r homocedas, fig.cap="Evaluando Homocedasticidad"}
 # linea roja debe tender a horizontal
 plot(reg2, 3)
 ```
 
-También podemos utilizar el test de Breusch-Pagan:
+También podemos utilizar el test de Breusch-Pagan, como se ve en la Tabla \@ref(fig:bptest).
 
-```{r}
+```{r bptest}
 library(lmtest)
+library(kableExtra)
 # null: modelo homocedastico
-bptest(reg2)
+resBP=bptest(reg2)
+data.frame(list('BP'=resBP$statistic,
+             'df'=resBP$parameter,
+             "p-value"=resBP$p.value))%>%
+    kable(caption = resBP$method)%>%kable_styling(full_width = F)
 ```
 
-La probabilidad de homocedasticidad es muy baja (p-value menor a 0.05), de ahi que se rechaza que el modelo muestre homocedasticidad.
+Es estadístico de BP sale `r bptest(reg2)$statistic` con un p-valor de `r bptest(reg2)$p.value`; de ahí que se rechaza que el modelo muestre homocedasticidad.
 
-**3. Normalidad de los residuos**
+La presencia de heterocedasticidad afecta el cálculo de los p-valores, lo que afectará la validez de todo el modelo.
 
-Los residuos, la diferencia entre *apropiaciondolar* y $\hat{apropiaciondolar}$, deben distribuirse de manera normal:
+## Normalidad de los residuos
 
-```{r}
-# puntos cerca a la diagonal
+Los residuos, la diferencia entre *apropiaciondolar* y $\hat{apropiaciondolar}$, deben distribuirse de manera normal. Un **qq-plot** nos permite revelar si hay normalidad. Ver Figura \@ref(fig:normalidadRes).
+
+```{r normalidadRes, fig.cap="Evaluando Normalidad de residuos"}
+# puntos cerca a la diagonal?
 plot(reg2, 2)
 ```
 
-Podemos aplicar el test de Shapiro a los residuos:
+Otra opción, es  aplicar el test de Shapiro a los residuos, como se ve en la Tabla \@ref(tab:shapiwtest).
 
-```{r}
-shapiro.test(reg2$residuals)
+```{r shapiwtest}
+#NULL: Datos se distribuyen de manera normal
+resSW=shapiro.test(reg2$residuals)
+data.frame(list('SW'=resSW$statistic,
+             "p-value"=resSW$p.value))%>%
+    kable(caption = resSW$method)%>%kable_styling(full_width = F)
+
 ```
+La falta de normalidad limita la capacidad de hacer inferencias a partir de lo encontrado.
 
-**4. No multicolinelidad**
 
-Si los predictores tienen una correlación muy alta entre sí, hay multicolinealidad, lo cual no es deseable:
+## No multicolinelidad
 
-```{r}
+Si los predictores tienen una correlación muy alta entre sí, hay multicolinealidad. Ver Tabla \@ref(tab:vif).
+
+```{r vif, message=FALSE}
+
 library(DescTools)
-VIF(reg2) # > 5 es problematico
+# > 5 es problematico
+VIF(reg2) %>%kable(col.names = "VIF",caption ="Evaluando Multicolinealidad usando VIF (Variance Inflation Factors)" )%>%kable_styling(full_width = F)
 ```
 
-**5. Valores influyentes**:
+La presencia de la multicolinealidad no perjudica tanto el calculo de ($\hat{apropiaciondolar}$), pero evita calcular bien el efecto de cada regresor. 
 
-Hay casos particulares, que tienen la capacidad de trastocar lo que el modelo representa. A veces detectándolos y suprimiéndolos, podemos ver un mejor modelo:
+## Valores influyentes
 
-```{r}
+Hay casos particulares, que tienen la capacidad de trastocar lo que el modelo representa. A veces detectándolos y suprimiéndolos, podemos ver un mejor modelo. La Figura \@ref(fig:influs) muestra la posible existencia de los valores influyentes.
+
+```{r influs, fig.cap="Existencia de Valores Influyentes"}
 plot(reg2, 5)
 ```
 
-Asi podemos recuperar los casos influyentes:
+Si queremos ver más de cerca los posible casos influyentes, le prestamos atencion al indice de Cook y a los valores predecidos (los *hat* values) de la Tabla \@ref(tab:influ)
 
-```{r}
+```{r influ}
 checkReg2=as.data.frame(influence.measures(reg2)$is.inf)
-head(checkReg2)
+checkReg2[checkReg2$cook.d & checkReg2$hat,c('cook.d','hat')]%>%kable(caption = "Valores Influyentes criticos")%>%kable_styling(full_width = F)
 ```
 
-Normalmente le prestamos atencion al indice de Cook y a los valores predecidos (los *hat* values):
+
 
 ```{r}
-checkReg2[checkReg2$cook.d & checkReg2$hat,]
+
 
 ```
+Si alguna fila aparece en el resultado, ese caso está afectando los cálculos de la regresión (sin él habría otro resultado). 
 
 ------------------------------------------------------------------------
 
