@@ -29,23 +29,9 @@ Profesor: <a href="http://www.pucp.edu.pe/profesor/jose-manuel-magallanes/" targ
 
 ------------------------------------------------------------------------
 
-<center>
+<center><header><h2>Regresión Lineal Multivariada (II)</h2></header></center>
 
-<header>
-
-<h2>
-
-Regresión Lineal Multivariada (II)
-
-</h2>
-
-</header>
-
-</center>
-
-<center><a href="https://zenodo.org/badge/latestdoi/526453788"><img src="https://zenodo.org/badge/526453788.svg" alt="DOI"></a>
-
-</center>
+<center><a href="https://zenodo.org/badge/latestdoi/526453788"><img src="https://zenodo.org/badge/526453788.svg" alt="DOI"></a></center>
 ------------------------------------------------------------------------
 
 <a id='rlin'></a>
