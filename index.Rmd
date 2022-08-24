@@ -3,8 +3,8 @@ title: "Sesión 2"
 output:
   bookdown::html_document2:
     code_folding: hide 
-    toc: true
-    toc_float: true
+#    toc: true
+#    toc_float: true
 bibliography: references.bib
 #zotero: true
 ---
