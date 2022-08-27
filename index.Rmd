@@ -31,7 +31,10 @@ Profesor: <a href="http://www.pucp.edu.pe/profesor/jose-manuel-magallanes/" targ
 
 <center><header><h2>Regresión Lineal Multivariada (II)</h2></header></center>
 
-<center><a href="https://zenodo.org/badge/latestdoi/526453788"><img src="https://zenodo.org/badge/526453788.svg" alt="DOI"></a></center>
+
+<center><a href="https://doi.org/10.5281/zenodo.7017887"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7017887.svg" alt="DOI"></a>
+
+</center
 ------------------------------------------------------------------------
 
 <a id='rlin'></a>
@@ -339,7 +342,7 @@ Se asume que la dispersión de los errores de la estimación ($\hat{apropiaciond
 plot(reg2, 3)
 ```
 
-También podemos utilizar el test de Breusch-Pagan, como se ve en la Tabla \@ref(fig:bptest).
+También podemos utilizar el test de Breusch-Pagan, como se ve en la Tabla \@ref(tab:bptest).
 
 ```{r bptest}
 library(lmtest)
@@ -407,11 +410,6 @@ checkReg2[checkReg2$cook.d & checkReg2$hat,c('cook.d','hat')]%>%kable(caption = 
 ```
 
 
-
-```{r}
-
-
-```
 Si alguna fila aparece en el resultado, ese caso está afectando los cálculos de la regresión (sin él habría otro resultado). 
 
 ------------------------------------------------------------------------
