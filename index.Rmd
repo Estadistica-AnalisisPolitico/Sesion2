@@ -111,7 +111,7 @@ dfSummary(pavi[,-1],
           style        = "grid", 
           graph.col=F,
           na.col    = FALSE) %>%
-    kable(caption = "Summary Table")%>%
+    kable(caption = "Descriptivos Univariados")%>%
     kable_styling(full_width = F)
 ```
 
