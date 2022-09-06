@@ -249,7 +249,7 @@ library(knitr)
 tanova=anova(reg1,reg2)
 # modelsummary(tanova,)
 kable(tanova,
-      caption = "This is a table")%>%kableExtra::kable_styling(full_width = FALSE)
+      caption = "Tabla ANOVA para comparar modelos")%>%kableExtra::kable_styling(full_width = FALSE)
 ```
 
 <br></br>
