@@ -29,7 +29,7 @@ Profesor: <a href="http://www.pucp.edu.pe/profesor/jose-manuel-magallanes/" targ
 
 ------------------------------------------------------------------------
 
-<center><header><h2>Regresión de Variables Continuas (II)</h2></header></center>
+<center><header><h2>Regresión de Variables Continuas</h2></header></center>
 
 
 <center><a href="https://doi.org/10.5281/zenodo.7017887"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7017887.svg" alt="DOI"></a>
