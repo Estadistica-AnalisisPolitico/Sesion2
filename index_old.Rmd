@@ -100,6 +100,9 @@ pavi[,seleccion]=lapply(pavi[,seleccion],as.factor)
 Es importante tener una idea clara de las variables en el estudio. Al menos debes tener una tabla con los estadísticos de centralidad y dispersion para el caso numerico ver Tabla \@ref(tab:summaryT).
 
 ```{r summaryT, results='asis'}
+
+# DescTools::Desc(pavi[,-1])
+
 library(summarytools)
 library(tidyr)
 library(knitr)

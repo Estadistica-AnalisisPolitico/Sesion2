@@ -1,5 +1,5 @@
 ---
-title: "Sesión 2"
+title: ""
 output:
   bookdown::html_document2:
     code_folding: hide 
@@ -9,27 +9,44 @@ bibliography: references.bib
 #zotero: true
 ---
 
+
+<img src="https://imgur.com/T5KQ7qg.jpg" width="400"/>
+
 <center>
 
-<img src="https://github.com/Estadistica-AnalisisPolitico/Images/raw/main/LogoEAP.png" width="500"/>
+<h1>Estadística para el Análisis Político 2</h1>
 
 </center>
 
-Profesor: <a href="http://www.pucp.edu.pe/profesor/jose-manuel-magallanes/" target="_blank">Dr. José Manuel MAGALLANES REYES, Ph.D.</a> <br>
+<br>
 
--   Profesor del Departamento de Ciencias Sociales, Sección de Ciencia Política y Gobierno.
+Profesor:[Dr. José Manuel MAGALLANES REYES, Ph.D](http://www.pucp.edu.pe/profesor/jose-manuel-magallanes/" target="_blank) <br>
 
--   [Oficina 105](https://goo.gl/maps/xuGeG6o9di1i1y5m6) - Edificio CISEPA / ECONOMIA / CCSS
+-   Profesor Principal del Departamento de Ciencias Sociales, Sección de Ciencia Política y Gobierno.
 
+-   [Oficina 223](https://goo.gl/maps/xuGeG6o9di1i1y5m6) - Edificio CISEPA / ECONOMIA / CCSS
 -   Telefono: (51) 1 - 6262000 anexo 4302
-
 -   Correo Electrónico: [jmagallanes\@pucp.edu.pe](mailto:jmagallanes@pucp.edu.pe)
 
 <a id='beginning'></a>
 
 ------------------------------------------------------------------------
 
-<center><header><h2>Regresión de Variables Continuas</h2></header></center>
+<center>
+
+<header>
+
+Sesión 2: Regresión Gaussiana
+
+</header>
+
+</center>
+
+<a id='beginning'></a>
+
+------------------------------------------------------------------------
+
+
 
 
 <center><a href="https://doi.org/10.5281/zenodo.7017887"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7017887.svg" alt="DOI"></a>
@@ -39,15 +56,19 @@ Profesor: <a href="http://www.pucp.edu.pe/profesor/jose-manuel-magallanes/" targ
 
 <a id='rlin'></a>
 
-# Regresión Gaussiana
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+```
+
+# Introducción
 
 La regresión es una técnica donde hay que definir una variable dependiente y una o más independientes. Las independientes pueden tener rol predictor, dependiendo del diseño de investigación, pero cumple siempre un rol explicativo; así, la regresión quiere informar cuánto una variable (*independiente*) puede explicar la variación de otra (*dependiente*), de ahí que es una técnica para probar hipótesis direccionales o asimétricas (las correlaciones tiene hipótesis no direccionales o simétricas).
 
 La regresión Gaussiana busca proponer un modelo, y es aplicable sólo cuando la variable dependiente (la **Y**) es *numérica*, continua, y *no acotada*.
 
-## Caso de Estudio: Pavimentando con votos
+**Caso de Estudio:** Pavimentando con votos
 
-Profesores de la Universidad de los Andes [@mejiaguinand2008] decidieron estudiar cómo la distribución de fondos públicos fue afectada por factores políticos durante el primer periodo del Presidente Uribe (2002-2006). Las hipótesis que se plantean son:
+Profesores de la Universidad de los Andes [@mejiaguinand2008] decidieron estudiar cómo la _distribución de fondos públicos_ fue afectada por _factores políticos_ durante el primer periodo del Presidente Uribe (2002-2006). Las hipótesis que se plantean son:
 
 -   H1: la asignación presupuestal en infraestructura vial en Colombia responde a los criterios técnicos y económicos determinados en el Plan Nacional de Desarrollo y otros documentos de carácter técnico elaborados por el gobierno.
 
@@ -61,23 +82,10 @@ Para ello, organizaron estos datos:
 
 </iframe>
 
-Luego de leer el artículo:
-
-1.  ¿Cómo decidieron los autores operacionalizar las variables independientes y la dependiente?
-
-2.  ¿Qué función cumplen las variables de control?
-
-3.  ¿Para que les sirvió la regresión?
-
-4.  ¿Hicieron una regresión por cada hipotesis?
-
-5.  ¿Se probaron todas las hipótesis?
-
-Pasemos a usar los datos en R:
 
 ## Preparación de los datos
 
-Veamos los datos del artículo en cuestíon:
+Una vez se tienen en claro las hipótesis, podemos pasar a organizar los datos. Veamos los datos del artículo en cuestíon:
 
 ```{r, warning=FALSE, message=FALSE, echo=TRUE}
 rm(list = ls()) # limpiar el working environment
@@ -104,12 +112,14 @@ pavi[,seleccion]=lapply(pavi[,seleccion],as.factor)
 ```
 
 
+
 ## Explorando las variables
 
 ```{r}
-paviStats=DescTools::Desc(pavi[,-1])
+paviStats=summary(pavi[,-1])
 paviStats
 ```
+¿Qué puedes decir de estos resultados?
 
 
 Luego, es importante saber qué relación se revela entre la variable dependiente y las demás. Se puede comenzar con las que son numéricas, es decir, haciendo un análisis de correlación. Eso lo apreciamos en la Figura \@ref(fig:corrInfo).
@@ -159,11 +169,11 @@ for (col in colCats) {
 }
 ```
 
-## Análisis de Regresión
+# Análisis de Regresión
 
 Veamos una hipotesis:
 
-> '*el Beneficio recibido*' en un municipio ha sido afectado por '*el porcentaje de votos recibidos por los candidatos de la oposición a Uribe a la camara de representantes*', controlando por '*tamaño de población*'.
+> *El Beneficio recibido* en un municipio ha sido afectado por *el porcentaje de votos recibidos por los candidatos de la oposición a Uribe a la camara de representantes*, controlando por *tamaño de población*.
 
 ```{r formulaMod1}
 # hipotesis en R
@@ -282,7 +292,7 @@ apropiaciondolar = `r reg3$coefficients[1]` + `r reg3$coefficients[2]` \cdot pct
 ```
 
 
-### Estandarización de Coeficientes
+## Estandarización de Coeficientes
 
 Del resultado de la Tabla \@ref(tab:prettyreg3a) NO podemos directamente decir que consejo comunal tiene más efecto que los demás por el solo hecho que el valor estimado sea mayor a los demás. Para saber cuál tiene más efecto, cuando los predictores tienen, como en este caso unidades diferentes, estandarizamos los datos y volvemos a correr la regresión. Veamos la Tabla \@ref(tab:reg3est).
 
