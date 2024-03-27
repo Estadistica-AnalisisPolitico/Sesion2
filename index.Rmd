@@ -402,7 +402,7 @@ Se asume relación lineal entre la variable dependiente (Y) y las independientes
 plot(reg2, 1)
 ```
 
-La falta de linearidad provocaría que el modelo no sirva para explicar las mismas variables con datos diferentes en otrs estudios.
+La falta de linearidad provocaría que el modelo no sirva para explicar las mismas variables con datos diferentes en otros estudios.
 
 ## Homocedasticidad
 
