@@ -10,13 +10,8 @@ bibliography: references.bib
 ---
 
 
-<img src="https://imgur.com/T5KQ7qg.jpg" width="400"/>
+<center><img src="https://github.com/Estadistica-AnalisisPolitico/operations_onDFs/blob/main/Logo2025.png?raw=true" width="900"/></center>
 
-<center>
-
-<h1>Estadística para el Análisis Político 2</h1>
-
-</center>
 
 <br>
 
@@ -62,9 +57,9 @@ klippy::klippy(position = c('top', 'right'))
 
 # Introducción
 
-La regresión es una técnica donde hay que definir una variable dependiente y una o más independientes. Las independientes pueden tener rol predictor, dependiendo del diseño de investigación, pero cumple siempre un rol explicativo; así, la regresión quiere informar cuánto una variable (*independiente*) puede explicar la variación de otra (*dependiente*), de ahí que es una técnica para probar hipótesis direccionales o asimétricas (las correlaciones tiene hipótesis no direccionales o simétricas).
+La regresión es una técnica donde hay que definir una variable dependiente y una o más independientes. Las independientes pueden tener rol predictor, dependiendo del diseño de investigación, pero cumple siempre un rol asociativo; así, la regresión quiere informar cuánto la variabilidad de la variable (*independiente*) puede asociarse a la variabilidad de la *dependiente*, controlando el efecto de otras variables, de ahí que es una técnica para probar hipótesis direccionales o asimétricas (las correlaciones tiene hipótesis no direccionales o simétricas).
 
-La regresión Gaussiana busca proponer un modelo, y es aplicable sólo cuando la variable dependiente (la **Y**) es *numérica*, continua, y *no acotada*.
+La regresión Gaussiana busca proponer un modelo relacional entre variable, y es aplicable sólo cuando la variable dependiente (la **Y**) es *numérica*, continua, y *no acotada*.
 
 **Caso de Estudio:** Pavimentando con votos
 
