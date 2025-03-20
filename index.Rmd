@@ -9,18 +9,18 @@ bibliography: references.bib
 #zotero: true
 ---
 
-
 <center><img src="https://github.com/Estadistica-AnalisisPolitico/operations_onDFs/blob/main/Logo2025.png?raw=true" width="900"/></center>
-
 
 <br>
 
-Profesor:[Dr. José Manuel MAGALLANES REYES, Ph.D](http://www.pucp.edu.pe/profesor/jose-manuel-magallanes/" target="_blank) <br>
+Profesor:[Dr. José Manuel MAGALLANES REYES, Ph.D](http://www.pucp.edu.pe/profesor/jose-manuel-magallanes/%22%20target=%22_blank) <br>
 
 -   Profesor Principal del Departamento de Ciencias Sociales, Sección de Ciencia Política y Gobierno.
 
 -   [Oficina 223](https://goo.gl/maps/xuGeG6o9di1i1y5m6) - Edificio CISEPA / ECONOMIA / CCSS
+
 -   Telefono: (51) 1 - 6262000 anexo 4302
+
 -   Correo Electrónico: [jmagallanes\@pucp.edu.pe](mailto:jmagallanes@pucp.edu.pe)
 
 <a id='beginning'></a>
@@ -29,11 +29,7 @@ Profesor:[Dr. José Manuel MAGALLANES REYES, Ph.D](http://www.pucp.edu.pe/profes
 
 <center>
 
-<header>
-
-Sesión 2: Regresión Gaussiana
-
-</header>
+<h1>Sesión 2: Regresión Gaussiana</h1>
 
 </center>
 
@@ -41,12 +37,8 @@ Sesión 2: Regresión Gaussiana
 
 ------------------------------------------------------------------------
 
+<center><a href="https://doi.org/10.5281/zenodo.7017887"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7017887.svg" alt="DOI"/></a></center>
 
-
-
-<center><a href="https://doi.org/10.5281/zenodo.7017887"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7017887.svg" alt="DOI"></a>
-
-</center>
 ------------------------------------------------------------------------
 
 <a id='rlin'></a>
@@ -63,7 +55,7 @@ La regresión Gaussiana busca proponer un modelo relacional entre variable, y es
 
 **Caso de Estudio:** Pavimentando con votos
 
-Profesores de la Universidad de los Andes [@mejiaguinand2008] decidieron estudiar cómo la _distribución de fondos públicos_ fue afectada por _factores políticos_ durante el primer periodo del Presidente Uribe (2002-2006). Las hipótesis que se plantean son:
+Profesores de la Universidad de los Andes [@mejiaguinand2008] decidieron estudiar cómo la *distribución de fondos públicos* fue afectada por *factores políticos* durante el primer periodo del Presidente Uribe (2002-2006). Las hipótesis que se plantean son:
 
 -   H1: la asignación presupuestal en infraestructura vial en Colombia responde a los criterios técnicos y económicos determinados en el Plan Nacional de Desarrollo y otros documentos de carácter técnico elaborados por el gobierno.
 
@@ -76,7 +68,6 @@ Para ello, organizaron estos datos:
 <iframe width="700" height="400" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRpCC8gKIxMxpK0wjgLcl-GQWdw6sAeB16Sixkq6kZXeTfMS8_n70twbEbQ2tMcGp8tm-6x8qf8ieo/pubhtml?">
 
 </iframe>
-
 
 ## Preparación de los datos
 
@@ -106,20 +97,16 @@ seleccion=c("consejocomunal","ejecucion","uribista","priorizado")
 pavi[,seleccion]=lapply(pavi[,seleccion],as.factor)
 ```
 
-
-
 ## Explorando las variables
 
 ```{r}
 paviStats=summary(pavi[,-1])
 paviStats
 ```
+
 ¿Qué puedes decir de estos resultados?
 
-
 Luego, es importante saber qué relación se revela entre la variable dependiente y las demás. Se puede comenzar con las que son numéricas, es decir, haciendo un análisis de correlación. Eso lo apreciamos en la Figura \@ref(fig:corrInfo).
-
-
 
 ```{r corrInfo, fig.cap="Correlación entre la VD y sus VIs", warning=FALSE, message=FALSE,echo=TRUE}
 
@@ -128,8 +115,6 @@ colNums=names(pavi)[c(2,6,8,9)]
 numXs=pavi[,colNums]
 ggcorrplot(cor(numXs),lab = T,show.diag = F)
 ```
-
-
 
 Por otro lado, podemos revisar la relación con las categóricas. Rapidamente podemos ver la diferencia estadística, parametrica y no paramétrica, por grupos en relación a nuestra dependiente en la Tabla \@ref(tab:diffGroup).
 
@@ -201,15 +186,13 @@ Al probar esta hipótesis vemos...
 
 1.  que *pctopo* tiene signo negativo (relación inversa con la VD),
 2.  que la *magnitud* de ese efecto es `r round(reg1$coefficients[2],3)`, lo que indica cuanto varía *apropiaciondolar* en promedio cuando *pctopo* se incremente en una unidad, controlando por *poblacioncienmil*.
-3. que *pctopo* NO tiene *efecto significativo*.
+3.  que *pctopo* NO tiene *efecto significativo*.
 
 Esto es información suficiente para representar esa relación con la Ecuación \@ref(eq:reg1).
 
-```{=tex}
 \begin{equation}
 apropiaciondolar = `r reg1$coefficients[1]` + `r reg1$coefficients[2]` \cdot pctopo + `r reg1$coefficients[3]`\cdot poblacioncienmil + \epsilon (\#eq:reg1)
 \end{equation}
-```
 
 Justamente el *R cuadrado ajustado* (`r summary(reg1)$r.squared`) nos brinda un porcentaje (multiplicalo por 100) que da una pista de nuestra cercanía a una situación perfecta (cuando vale **1**).
 
@@ -237,7 +220,6 @@ modelsummary(model2, title = "Regresion: modelo 2",
              output = "kableExtra")
 ```
 
-
 Al probar esta hipótesis vemos que...
 
 -   *pctopo* tiene signo negativo; NO tiene *efecto significativo*; y la *magnitud* de ese efecto es `r round(reg2$coefficients[2],3)`, lo que indica cuanto varíaría *apropiaciondolar* en promedio cuando *pctopo* se incremente en una unidad, controlando por las demás variables.
@@ -245,13 +227,11 @@ Al probar esta hipótesis vemos que...
 
 Nótese la lectura del efecto cuando la variable independiente es categórica (o *factor*). Primero, nota que *R* indica el valor *1* con el nombre de la variable: eso indica que el valor **0** (cuando el consejo comunal de ese municipio NO fue visitado) es la *categoría de referencia*; es decir, el coeficiente nos indica cuanto se modifica el valor promedio de la dependiente cuando se pasa de 0 a 1. Si la variable independiente es politómica (no ordinal), aparecerá cada categoría menos la de referencia, y el efecto siempre se debe interpretar como el efecto de la variable mostrada versus la de referencia. Con esta información podemos proponer la Ecuación \@ref(eq:reg2)
 
-```{=tex}
 \begin{equation}
 apropiaciondolar = `r reg2$coefficients[1]` + `r reg2$coefficients[2]` \cdot pctopo + `r reg2$coefficients[3]` \cdot consejocomunal + `r reg2$coefficients[4]`\cdot poblacioncienmil + \epsilon  (\#eq:reg2)
 \end{equation}
-```
 
-Incluyamos ahora el predictor  **uribista** al reciente modelo (Tabla \@ref(tab:prettyReg2)), obtenemos estos resultados:
+Incluyamos ahora el predictor **uribista** al reciente modelo (Tabla \@ref(tab:prettyReg2)), obtenemos estos resultados:
 
 ```{r reg3}
 # modelo 2 mas 'uribista'
@@ -274,18 +254,16 @@ modelsummary(model3, title = "Regresion: modelo 3",
 Al probar esta hipótesis vemos que..
 
 -   *pctopo* tiene signo negativo; y ahora SÍ tiene *efecto significativo*; y la *magnitud* de ese efecto es `r round(reg3$coefficients[2],3)`, lo que indica cuanto varíaría *apropiaciondolar* en promedio cuando *pctopo* se incremente en una unidad, controlando por las demás variables.
+
 -   *consejocomunal* MANTIENE tiene *efecto significativo* al **0.001**; ese efecto es *directo*, pues el coeficiente calculado es positivo; y la *magnitud* de ese efecto es `r round(reg3$coefficients[3],3)`, lo que indica cuanto varía *apropiaciondolar* en promedio cuando *consejocomunal* es **1** y no **0**, también controlando por las demás variables.
 
--   *uribista*  tiene *efecto significativo* al **0.05**; ese efecto es *inverso*, pues el coeficiente calculado es negativo; y la *magnitud* de ese efecto es `r round(reg3$coefficients[4],3)`, lo que indica cuanto varía *apropiaciondolar* en promedio cuando *uribista* es **1** y no **0**, también controlando por las demás variables.
+-   *uribista* tiene *efecto significativo* al **0.05**; ese efecto es *inverso*, pues el coeficiente calculado es negativo; y la *magnitud* de ese efecto es `r round(reg3$coefficients[4],3)`, lo que indica cuanto varía *apropiaciondolar* en promedio cuando *uribista* es **1** y no **0**, también controlando por las demás variables.
 
 Con esta información podemos proponer la Ecuación \@ref(eq:reg3)
 
-```{=tex}
 \begin{equation}
 apropiaciondolar = `r reg3$coefficients[1]` + `r reg3$coefficients[2]` \cdot pctopo + `r reg3$coefficients[3]` \cdot consejocomunal + `r reg3$coefficients[4]` \cdot uribista+ `r reg3$coefficients[5]`\cdot poblacioncienmil + \epsilon  (\#eq:reg3)
 \end{equation}
-```
-
 
 ## Estandarización de Coeficientes
 
@@ -301,8 +279,6 @@ modelsummary(modelo3_st, title = "Regresion: modelo 3 con \ncoeficientes estanda
              stars = TRUE,
              output = "kableExtra")
 ```
-
-
 
 De los resultados de la Tabla \@ref(tab:reg3est) se despeja que, dejando de lado la variable de control (poblacion por cien mil), la que tiene mayor efecto es consejo comunal, algo que no era evidente en la Tabla \@ref(tab:prettyreg3a). Esto nos indica cuantas desviaciones estándar varía la variable dependiente (*apropiacion dolar*) cuando la dependiente varía en una (1) desviación estándar [^2]. Nota además que hemos tenido que estandarizar variables categóricas, lo cuál NO es posible. Ello no debe preocupar pues esta etapa es sólo para comparar tamaño de efecto entre variables.
 
@@ -349,7 +325,7 @@ modelsummary(models, title = "Resultados de todos los modelos",statistic = "conf
              output = "kableExtra")
 ```
 
-La tabla \@ref(tab:prettyRegAllic) muestra que los valores no significativos incluyen al cero en el intervalo de confianza (salvo en el caso de _pctopo_ para el modelo 3, con significancia al 0.1). Gráficamente:
+La tabla \@ref(tab:prettyRegAllic) muestra que los valores no significativos incluyen al cero en el intervalo de confianza (salvo en el caso de *pctopo* para el modelo 3, con significancia al 0.1). Gráficamente:
 
 ```{r, message=FALSE}
 library(ggplot2)
@@ -358,9 +334,6 @@ library(sjPlot)
 
 plot_models(reg1,reg2,reg3,vline.color = "black",m.labels=c("Modelo 1","Modelo 2","Modelo 3"),dot.size = 1,line.size = 0.6)
 ```
-
-
-
 
 En todos los modelos, el $\epsilon$ no tiene coeficiente, representamos su variación usando el error típico de los residuos o *residual standard error* (RSE). Nótese que éste ha variado de un modelo ha otro tanto en las Tablas \@ref(tab:prettyRegAll) y \@ref(tab:prettyRegAllic), y en el último modelo se tiene un R2Adj mayor (el menor RSE). Aquí vale la pena preguntarse si esta disminución del error es significativa. Los resultados los vemos en la Tabla \@ref(tab:anova).
 
@@ -378,9 +351,6 @@ kable(tanova,
 
 La comparación de modelos usando la tabla de análisis de varianza (anova) propone como hipótesis nula que los modelos no difieren (no se ha reducido el error al pasar de un modelo a otro). Cuando la comparación es *significativa* (vea el **Pr(\>F)**), rechazamos igualdad de modelos: el modelo 2 presenta menos error que el modelo 1, pero el modelo 2 sí presenta menor error al modelo 2, por lo que el modelo 3 debe ser el elegido (hasta aquí).
 
-
-
-
 <a id='diag'></a>
 
 # Diagnósticos de la Regresión
@@ -389,8 +359,7 @@ Con el apoyo de las computadoras y el software estadístico es relativamente fac
 
 ## Linealidad
 
-Se asume relación lineal entre la variable dependiente (Y) y las independientes y Xs. Para ello analizamos la relación entre los residuos y los valores que predice  el modelo de regresión. Ver Figura \@ref(fig:linealidad).
-
+Se asume relación lineal entre la variable dependiente (Y) y las independientes y Xs. Para ello analizamos la relación entre los residuos y los valores que predice el modelo de regresión. Ver Figura \@ref(fig:linealidad).
 
 ```{r linealidad,fig.cap="Evaluando Linealidad"}
 # linea roja debe tender a horizontal
@@ -434,7 +403,7 @@ Los residuos, la diferencia entre *apropiaciondolar* y $\hat{apropiaciondolar}$,
 plot(reg2, 2)
 ```
 
-Otra opción, es  aplicar el test de Shapiro a los residuos, como se ve en la Tabla \@ref(tab:shapiwtest).
+Otra opción, es aplicar el test de Shapiro a los residuos, como se ve en la Tabla \@ref(tab:shapiwtest).
 
 ```{r shapiwtest}
 #NULL: Datos se distribuyen de manera normal
@@ -444,8 +413,8 @@ data.frame(list('SW'=resSW$statistic,
     kable(caption = resSW$method)%>%kable_styling(full_width = F)
 
 ```
-La falta de normalidad limita la capacidad de hacer inferencias a partir de lo encontrado.
 
+La falta de normalidad limita la capacidad de hacer inferencias a partir de lo encontrado.
 
 ## No multicolinelidad
 
@@ -458,7 +427,7 @@ library(DescTools)
 VIF(reg2) %>%kable(col.names = "VIF",caption ="Evaluando Multicolinealidad usando VIF (Variance Inflation Factors)" )%>%kable_styling(full_width = F)
 ```
 
-La presencia de la multicolinealidad no perjudica tanto el calculo de ($\hat{apropiaciondolar}$), pero evita calcular bien el efecto de cada regresor. 
+La presencia de la multicolinealidad no perjudica tanto el calculo de ($\hat{apropiaciondolar}$), pero evita calcular bien el efecto de cada regresor.
 
 ## Valores influyentes
 
@@ -475,8 +444,7 @@ checkReg2=as.data.frame(influence.measures(reg2)$is.inf)
 checkReg2[checkReg2$cook.d & checkReg2$hat,c('cook.d','hat')]%>%kable(caption = "Valores Influyentes criticos")%>%kable_styling(full_width = F)
 ```
 
-
-Si alguna fila aparece en el resultado, ese caso está afectando los cálculos de la regresión (sin él habría otro resultado). 
+Si alguna fila aparece en el resultado, ese caso está afectando los cálculos de la regresión (sin él habría otro resultado).
 
 ------------------------------------------------------------------------
 
